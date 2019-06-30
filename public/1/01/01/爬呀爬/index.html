@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>爬呀爬 - A Hugo website</title>
+<meta property="og:title" content="爬呀爬 - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">4 min read</span>
+    
+
+    <h1 class="article-title">爬呀爬</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      
+
+<pre><code class="language-r">knitr::opts_chunk$set(echo =TRUE)
+</code></pre>
+
+<h1 id="爬取ncbi文献">爬取ncbi文献</h1>
+
+<p>library(xml2)
+library(rvest)
+library(knitr)
+link &lt;- &lsquo;<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster'">https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster'</a>
+web &lt;- read_html(link)
+title &lt;- web %&gt;% html_nodes(&lsquo;div.rslt p.title a&rsquo;) %&gt;%html_text()
+author &lt;- web %&gt;% html_nodes(&lsquo;div.supp p.desc&rsquo;) %&gt;%html_text()
+journal &lt;- web %&gt;% html_nodes(&lsquo;div.supp p.details span&rsquo;) %&gt;%html_text()
+dat &lt;- data.frame(Title = title, Author = author, Journal = journal)
+kable(dat, format=&ldquo;html&rdquo;)
+write.table(dat, &lsquo;disaster_paper.txt&rsquo;, sep=&ldquo;&rdquo;, row.names = F, quote = F)
+结果如下
+TitleAuthorJournal
+Dynamics and diversity of heart rate responses to a disaster motion picture.Steiger BK, Kegel LC, Spirig E, Jokeit H.Int J Psychophysiol
+Heatwaves and hospitalizations due to hyperthermia in defined climate regions in the conterminous USA.Liss A, Naumova EN.Environ Monit Assess
+High-throughput sequencing and analysis of microbial communities in the mangrove swamps along the coast of Beibu Gulf in Guangxi, China.Gong B, Cao H, Peng C, Per<U+010D>ulija V, Tong G, Fang H, Wei X, Ouyang S.Sci Rep
+Operation RUMAN and the Ministry of Defence response to Hurricane Irma.Connolly M, Breeze J.J R Army Med Corps
+Mechanical Properties of Aluminum Alloys under Low-Cycle Fatigue Loading.Zhao X, Li H, Chen T, Cao B, Li X.Materials (Basel)
+How to Integrate Labor Disruption into an Economic Impact Evaluation Model for Postdisaster Recovery Periods.Zhang Z, Li N, Cui P, Xu H, Liu Y, Chen X, Feng J.Risk Anal
+Satellite-based assessment of electricity restoration efforts in Puerto Rico after Hurricane Maria.Rom??n MO, Stokes EC, Shrestha R, Wang Z, Schultz L, Carlo EAS, Sun Q, Bell J, Molthan A, Kalb V, Ji C, Seto KC, McClain SN, Enenkel M.PLoS One
+The Internal Brain Drain: Foreign Aid, Hiring Practices, and International Migration.Lemay-H??bert N, Marcelin LH, Pallage S, Cela T.Disasters
+Assessing Community Vulnerability to Floods and Hurricanes along the U.S. Gulf Coast.Shao W, Jackson NP, Ha H, Winemiller T.Disasters
+Return Migration after the Fukushima Nuclear Disaster: The Impact of Institutional and Individual Factors.Do XB.Disasters
+Implementation and Evaluation of the Value of Improved and Sustained Information Access by Library Expertise (VISIBLE) Program.Rebmann T, Tao D, Austin Turner J, Loux TM, Srinivasan S, Garza A.Disaster Med Public Health Prep
+Genoa, Italy Bridge Collapse: Effects on Neonatal Emergency Transport Service.Bellini C, Calevo MG.Prehosp Disaster Med
+Public Health Threats in Mass Gatherings: A Systematic Review.Karami M, Doosti-Irani A, Ardalan A, Gohari-Ensaf F, Berangi Z, Massad E, Rebi Yeganeh M, Asadi-Lari M, Gouya MM.Disaster Med Public Health Prep
+Exploring Disasters through the Eyes of Residential Nursing Home Caregivers.Uekusa S.Soc Work Public Health
+Remote post-mortem radiology reporting in disaster victim identification: experience gained in the 2017 Grenfell Tower disaster.Rutty GN, Biggs MJP, Brough A, Morgan B, Webster P, Heathcote A, Dolan J, Robinson C.Int J Legal Med
+Lessons learned from Fukushima, Japan: In what ways can the social sciences help to mitigate some of the health impacts of disaster?Ozaki A, Elstow L, Murakami M, Tsubokura M, Abeysinghe S.QJM
+Lateral variation of the Main Himalayan Thrust controls the rupture length of the 2015 Gorkha earthquake in Nepal.Bai L, Klemperer SL, Mori J, Karplus MS, Ding L, Liu H, Li G, Song B, Dhakal S.Sci Adv
+National screening programs in Saudi Arabia: Overview, outcomes, and effectiveness.Gosadi IM.J Infect Public Health
+Correction to: Particle toxicology and health - where are we?Riediker M, Zink D, Kreyling W, Oberd<U+00F6>rster G, Elder A, Graham U, Lynch I, Duschl A, Ichihara G, Ichihara S, Kobayashi T, Hisanaga N, Umezawa M, Cheng TJ, Handy R, Gulumian M, Tinkle S, Cassee F.Part Fibre Toxicol
+Maximum Norepinephrine Dosage Within 24 Hours as an Indicator of Refractory Septic Shock: A Retrospective Study.Kasugai D, Hirakawa A, Ozaki M, Nishida K, Ikeda T, Takahashi K, Matsui S, Uenishi N.J Intensive Care Med</p>
+
+<p>保存为disaster_paper.txt
+（第一次没有加载xml2么有成功）</p>
+
+<h1 id="爬取豆瓣图书">爬取豆瓣图书</h1>
+
+<p>代码如下
+library(&ldquo;xml2&rdquo;)          #加载用到的包
+book &lt;-data.frame()           #先建立一个空的数据框
+for (i in 1:10){                  #写一个循环，批量爬取10个页面的数据
+  url &lt;- paste0(&ldquo;<a href="https://book.douban.com/top250?start=&quot;,(i-1)*25">https://book.douban.com/top250?start=&quot;,(i-1)*25</a>) #paste0()用来连接字符串
+  web &lt;- read_html(url,encoding=&ldquo;UTF-8&rdquo;)</p>
+
+<p>name &lt;- web %&gt;% html_nodes(&ldquo;tr&gt;td:nth-child(2)&gt;div.pl2&gt;a&rdquo;) %&gt;% html_text()#爬取书名</p>
+
+<p>info &lt;-web %&gt;% html_nodes(&ldquo;tr&gt;td:nth-child(2)&gt;p.pl&rdquo;) %&gt;% html_text()    #爬取图书具体信息，包括作者、出版社、出版时间等</p>
+
+<p>point&lt;-web %&gt;% html_nodes(&ldquo;div.star.clearfix&gt;span.rating_nums&rdquo;) %&gt;% html_text() %&gt;% as.numeric()  #爬取评分</p>
+
+<p>value&lt;-web %&gt;% html_nodes(&ldquo;div.star.clearfix&gt;span.pl&rdquo;) %&gt;% html_text() %&gt;% as.character()    #爬取评分人数</p>
+
+<p>bookinfo &lt;-data.frame(name,info,point,value)
+  book &lt;-rbind(book,bookinfo)
+}</p>
+
+<p>write.csv(book,file=&ldquo;douban_book.csv&rdquo;)    #保存数据，后手动改名称为doubanbook</p>
+
+<p>因数据清洗过于繁琐，且爬取数据中中国作家国籍为默认不显示，需要其他手段来进行解决，故后续不予进行</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
